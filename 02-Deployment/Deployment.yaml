@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roleta-pod-deploy
+spec:
+  selector:
+    matchLabels:
+      app: roleta-pod
+  template:
+    metadata:
+      labels:
+        app: roleta-pod
+    spec:
+      containers:
+      - name: job
+        image: fabricioveronez/roleta:v1
+        args:
+          - "-w"
+          - "15"
+          - "-c"
+          - "2"
+          - "-m"
+          - "5"              
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"  
+      restartPolicy: Always

@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roleta-job
+spec:
+  parallelism: 1
+  backoffLimit: 100  
+  completions: 2
+  ttlSecondsAfterFinished: 20
+  template:
+    spec:
+      containers:
+      - name: job
+        image: fabricioveronez/roleta
+        args:
+          - "-w"
+          - "15"
+          - "-c"
+          - "2"
+          - "-m"
+          - "5"
+      restartPolicy: Never
+

@@ -1,0 +1,27 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: roleta-job
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Allow
+  jobTemplate:
+    spec:
+      parallelism: 1
+      backoffLimit: 100  
+      completions: 2
+      ttlSecondsAfterFinished: 20
+      template:
+        spec:
+          containers:
+          - name: job
+            image: fabricioveronez/roleta
+            args:
+              - "-w"
+              - "15"
+              - "-c"
+              - "2"
+              - "-m"
+              - "5"
+          restartPolicy: Never
+

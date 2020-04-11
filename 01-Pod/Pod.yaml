@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: roleta-pod
+spec:
+  containers:
+  - name: job
+    image: fabricioveronez/roleta:v1
+    args:
+      - "-w"
+      - "240"
+      - "-c"
+      - "2"
+      - "-m"
+      - "5"    
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"  
+  restartPolicy: OnFailure
