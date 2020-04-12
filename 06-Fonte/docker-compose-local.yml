@@ -12,16 +12,16 @@ services:
     networks:
       - SensorReceiver
     environment:
-      RABBITMQ_DEFAULT_USER: jobUser
-      RABBITMQ_DEFAULT_PASS: jobPwd
+      RABBITMQ_DEFAULT_USER: logUser
+      RABBITMQ_DEFAULT_PASS: logPwd
 
-  corecrud-mongodb:
+  mongodb:
     container_name: mongodb
     image: mongo:4.2.5
     volumes:
         - db_mongo:/data/db
     networks:
-        - corecrud
+      - SensorReceiver
     restart: always
     command: --storageEngine wiredTiger
     environment: 
