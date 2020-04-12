@@ -1,0 +1,293 @@
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Apdex
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = apdex
+                   unit = result
+# FIELDS:
+                samples = 0
+                  score = 1
+              satisfied = 0
+             tolerating = 0
+            frustrating = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] One Minute Error Percentage Rate
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = gauge
+                   unit = req
+# FIELDS:
+                  value = 0.225646918323042
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Active
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = counter
+                   unit = Active Requests
+# FIELDS:
+                  value = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Errors
+# TAGS:
+       http_status_code = 404
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = counter
+                   unit = err
+# FIELDS:
+                  value = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Error Rate Per Endpoint And Status Code
+# TAGS:
+                  route = GET
+       http_status_code = 404
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = meter
+                   unit = req
+              unit_rate = min
+# FIELDS:
+            count.meter = 2
+                 rate1m = 0.666790414898983
+                 rate5m = 11.7210592959885
+                rate15m = 18.9000570666225
+              rate.mean = 0.543492670563599
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Error Rate Per Endpoint
+# TAGS:
+                  route = GET
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = meter
+                   unit = req
+              unit_rate = min
+# FIELDS:
+            count.meter = 2
+                 rate1m = 0.666790414898983
+                 rate5m = 11.7210592959885
+                rate15m = 18.9000570666225
+              rate.mean = 0.543492565948353
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Error Rate
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = meter
+                   unit = req
+              unit_rate = min
+# FIELDS:
+            count.meter = 2
+                 rate1m = 0.666790414898983
+                 rate5m = 11.7210592959885
+                rate15m = 18.9000570666225
+              rate.mean = 0.543478368432992
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Transactions Per Endpoint
+# TAGS:
+                  route = GET
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = timer
+                   unit = req
+               unit_dur = ms
+              unit_rate = min
+# FIELDS:
+            count.meter = 0
+                 rate1m = 0
+                 rate5m = 0
+                rate15m = 0
+              rate.mean = 0
+                samples = 0
+                   last = 0
+             count.hist = 0
+                    sum = 0
+                    min = 0
+                    max = 0
+                   mean = 0
+                 median = 0
+                 stddev = 0
+                   p999 = 0
+                    p99 = 0
+                    p98 = 0
+                    p95 = 0
+                    p75 = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Transactions Per Endpoint
+# TAGS:
+                  route = POST api/event
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = timer
+                   unit = req
+               unit_dur = ms
+              unit_rate = min
+# FIELDS:
+            count.meter = 1382
+                 rate1m = 668.003486984058
+                 rate5m = 587.793903789086
+                rate15m = 550.949379770113
+              rate.mean = 713.165644662111
+                samples = 1028
+                   last = 128.98
+             count.hist = 1382
+                    sum = 180239.4094
+                    min = 64.1344
+                    max = 1316.7713
+                   mean = 127.437698539571
+                 median = 101.7506
+                 stddev = 88.7773709666205
+                   p999 = 724.4265
+                    p99 = 419.3912
+                    p98 = 400.7832
+                    p95 = 340.7858
+                    p75 = 128.8795
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] Transactions
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = timer
+                   unit = req
+               unit_dur = ms
+              unit_rate = min
+# FIELDS:
+            count.meter = 692
+                 rate1m = 295.501671307733
+                 rate5m = 119.818865667362
+                rate15m = 52.5918025235068
+              rate.mean = 185.926032858273
+                samples = 692
+                   last = 128.9584
+             count.hist = 692
+                    sum = 90523.3849
+                    min = 60.6157
+                    max = 1316.8486
+                   mean = 128.862674013764
+                 median = 101.6565
+                 stddev = 95.1287617480095
+                   p999 = 1316.8486
+                    p99 = 426.1647
+                    p98 = 402.5107
+                    p95 = 341.6973
+                    p75 = 129.6459
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [Application.HttpRequests] POST Size
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = histogram
+                   unit = B
+# FIELDS:
+                samples = 1028
+                   last = 69
+             count.hist = 1382
+                    sum = 96990
+                    min = 63
+                    max = 76
+                   mean = 70.1617751171692
+                 median = 70
+                 stddev = 3.6235461444254
+                   p999 = 76
+                    p99 = 76
+                    p98 = 76
+                    p95 = 76
+                    p75 = 73
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [appmetrics.internal] report_failed  items
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                   item = App.Metrics.Reporting.Elasticsearch.ElasticsearchReporter
+                  mtype = counter
+                   unit = items
+# FIELDS:
+                  total = 0
+                percent = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [appmetrics.internal] report_failed  items
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                   item = App.Metrics.Reporting.TextFile.TextFileMetricsReporter
+                  mtype = counter
+                   unit = items
+# FIELDS:
+                  total = 0
+                percent = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [appmetrics.internal] report_failed
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = counter
+                   unit = items
+# FIELDS:
+                  value = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [appmetrics.internal] report_success  items
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                   item = App.Metrics.Reporting.InfluxDB.InfluxDbMetricsReporter
+                  mtype = counter
+                   unit = items
+# FIELDS:
+                  total = 0
+                percent = 0
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [appmetrics.internal] report_success  items
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                   item = App.Metrics.Reporting.TextFile.TextFileMetricsReporter
+                  mtype = counter
+                   unit = items
+# FIELDS:
+                  total = 1
+                percent = 100
+--------------------------------------------------------------
+# TIMESTAMP: 636775577267345156
+# MEASUREMENT: [appmetrics.internal] report_success
+# TAGS:
+                 server = 0d988c3019aa
+                    app = SensorReceiver.Api
+                    env = development
+                  mtype = counter
+                   unit = items
+# FIELDS:
+                  value = 1
+--------------------------------------------------------------
