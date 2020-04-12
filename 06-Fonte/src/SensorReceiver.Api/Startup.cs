@@ -25,14 +25,22 @@ namespace SensorReceiver.Api
         {
             services.AddSingleton((ser) => new EnviromentConfiguration(Configuration));
 
-            services.AddSingleton<IConnectionFactory>(new ConnectionFactory()
+            services.AddSingleton<IConnectionFactory>((ser) =>
             {
-                HostName = Configuration.GetSection("QueueConfig:hostName").Value,
-                UserName = Configuration.GetSection("QueueConfig:userName").Value,
-                Password = Configuration.GetSection("QueueConfig:password").Value
+                var envConf = ser.GetService<EnviromentConfiguration>();
+                return new ConnectionFactory()
+                {
+                    HostName = envConf.GetValue("QueueConfig:hostName"),
+                    UserName = envConf.GetValue("QueueConfig:userName"),
+                    Password = envConf.GetValue("QueueConfig:password")
+                };
             });
 
-            services.AddTransient<IQueueClient>((ser) => new RabbitMQQueueClient(ser.GetService<IConnectionFactory>(), Configuration.GetSection("QueueConfig:queue").Value));
+            services.AddTransient<IQueueClient>((ser) =>
+            {
+                var envConf = ser.GetService<EnviromentConfiguration>();
+                return new RabbitMQQueueClient(ser.GetService<IConnectionFactory>(), envConf.GetValue("QueueConfig:queue"));
+            });
 
             IMetricsRoot metrics = AppMetrics.CreateDefaultBuilder().Build();
 

@@ -17,7 +17,7 @@ namespace SensorReceiver.Api.Controllers
                 queueClient.Publish<NewEventCommand>("", "sensor-event", newEvent);
                 return newEvent;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest("Erro ao receber o evento.");
             }

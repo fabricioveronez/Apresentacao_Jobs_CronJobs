@@ -11,6 +11,8 @@ using SensorReceiver.Domain.Command;
 using SensorReceiver.Domain.Handler;
 using MongoDB.Driver;
 using SensorReceiver.Domain.Entities;
+using SensorReceiver.Infrastructure.Common;
+using System.Threading;
 
 namespace SensorReceiver.Worker
 {
@@ -18,6 +20,7 @@ namespace SensorReceiver.Worker
     {
         static void Main(string[] args)
         {
+            Thread.Sleep(60000);
             var servicesProvider = ConfigureContainer();
             var runner = servicesProvider.GetRequiredService<App>();
             runner.Execute(args);
@@ -32,23 +35,30 @@ namespace SensorReceiver.Worker
         {
             ServiceCollection services = new ServiceCollection();
 
+            services.AddSingleton((ser) => new EnviromentConfiguration(Configuration));
+
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("appsettings.json");
 
             Configuration = configurationBuilder.Build();
 
-            services.AddSingleton<IConnectionFactory>(new ConnectionFactory()
+            services.AddSingleton<IConnectionFactory>((ser) =>
             {
-                HostName = Configuration.GetSection("QueueConfig:hostName").Value,
-                UserName = Configuration.GetSection("QueueConfig:userName").Value,
-                Password = Configuration.GetSection("QueueConfig:password").Value
+                var envConf = ser.GetService<EnviromentConfiguration>();
+                return new ConnectionFactory()
+                {
+                    HostName = envConf.GetValue("QueueConfig:hostName"),
+                    UserName = envConf.GetValue("QueueConfig:userName"),
+                    Password = envConf.GetValue("QueueConfig:password")
+                };
             });
 
             services.AddTransient((ser) =>
             {
-                var db = new MongoClient($"mongodb://{Configuration.GetSection("MongoClient:User").Value}:{Configuration.GetSection("MongoClient:Password").Value}@{Configuration.GetSection("MongoClient:Host").Value}:27017/{Configuration.GetSection("MongoClient:Database").Value}");
-                return db.GetDatabase(Configuration.GetSection("MongoClient:Database").Value).GetCollection<Event>("Event");
+                var envConf = ser.GetService<EnviromentConfiguration>();
+                var db = new MongoClient($"mongodb://{envConf.GetValue("MongoClient:User")}:{envConf.GetValue("MongoClient:Password")}@{envConf.GetValue("MongoClient:Host")}:27017/{envConf.GetValue("MongoClient:Database")}");
+                return db.GetDatabase(envConf.GetValue("MongoClient:Database")).GetCollection<Event>("Event");
             });
             services.AddTransient<IEventData, EventData>();
             services.AddTransient<IHandler<NewEventCommand>, NewEventCommandHandler>();
@@ -56,7 +66,11 @@ namespace SensorReceiver.Worker
             // Application
             services.AddTransient<App>();
 
-            services.AddTransient<IQueueClient>((ser) => new RabbitMQQueueClient(ser.GetService<IConnectionFactory>(), Configuration.GetSection("QueueConfig:queue").Value));
+            services.AddTransient<IQueueClient>((ser) =>
+            {
+                var envConf = ser.GetService<EnviromentConfiguration>();
+                return new RabbitMQQueueClient(ser.GetService<IConnectionFactory>(), envConf.GetValue("QueueConfig:queue"));
+            });
             services.AddScoped(typeof(IQueueReceiver<>), typeof(RabbitMQQueueReceiver<>));
 
             return services.BuildServiceProvider();

@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   SensorReceiver.api:
-    image: fabricioveronez/architect-challenge-api
+    image: fabricioveronez/sensor-receiver-api
     build:
       context: .
       dockerfile: src/SensorReceiver.Api/Dockerfile
@@ -12,6 +12,11 @@ services:
       - SensorReceiver
     ports:
       - "8181:80"
+    environment:
+      QUEUECONFIG_HOSTNAME: rabbitmq
+      QUEUECONFIG_USERNAME: jobUser
+      QUEUECONFIG_PASSWORD: jobPwd
+      QUEUECONFIG_QUEUE: sensor-event
 
   rabbitmq:
     container_name: rabbitmq
@@ -32,8 +37,10 @@ services:
     image: mongo:4.2.5
     volumes:
         - db_mongo:/data/db
+    ports:
+      - "27017:27017"
     networks:
-        - corecrud
+      - SensorReceiver
     restart: always
     command: --storageEngine wiredTiger
     environment: 
@@ -41,7 +48,7 @@ services:
         MONGO_INITDB_ROOT_PASSWORD: GPX4WOwpcvOc9Wm70gAG8It7tKA0Cy090ZVO82cEJsExogsMDY
 
   SensorReceiver.worker:
-    image: fabricioveronez/SensorReceiverworker
+    image: fabricioveronez/sensor-receiver-worker
     build:
       context: .
       dockerfile: src/SensorReceiver.Worker/Dockerfile
@@ -50,6 +57,15 @@ services:
       - rabbitmq
     networks:
       - SensorReceiver
+    environment:
+      QUEUECONFIG_HOSTNAME: rabbitmq
+      QUEUECONFIG_USERNAME: jobUser
+      QUEUECONFIG_PASSWORD: jobPwd
+      QUEUECONFIG_QUEUE: sensor-event      
+      MONGOCLIENT_HOST: mongodb
+      MONGOCLIENT_DATABASE: admin
+      MONGOCLIENT_USER: mongouser
+      MONGOCLIENT_PASSWORD: GPX4WOwpcvOc9Wm70gAG8It7tKA0Cy090ZVO82cEJsExogsMDY
 
 volumes:
   mq_data:
