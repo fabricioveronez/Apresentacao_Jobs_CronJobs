@@ -3,13 +3,29 @@ kind: CronJob
 metadata:
   name: roleta-job
 spec:
+              # Formato Cron
+              # ┌───────────── minute (0 - 59)
+              # │ ┌───────────── hour (0 - 23)
+              # │ │ ┌───────────── day of the month (1 - 31)
+              # │ │ │ ┌───────────── month (1 - 12)
+              # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+              # │ │ │ │ │                                   7 is also Sunday on some systems)
+              # │ │ │ │ │
+              # │ │ │ │ │
+              # * * * * *
+              # https://crontab.guru/
+              # https://crontab-generator.org/
   schedule: "*/5 * * * *"
   concurrencyPolicy: Allow
   jobTemplate:
     spec:
+      # Quantos pods eu posso criar em paralelo 
       parallelism: 1
-      backoffLimit: 100  
+      # Quantas vezes eu tolero falhar
+      backoffLimit: 100 
+      # Quantas vezes eu preciso completar a tarefa pra considerar concluído 
       completions: 2
+      # Quanto tempo o pod fica disponível antes de ser removido. Mas o cluster precisa ter o TTLAfterFinished configurado
       ttlSecondsAfterFinished: 20
       template:
         spec:

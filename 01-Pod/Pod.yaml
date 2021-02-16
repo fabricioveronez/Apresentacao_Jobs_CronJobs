@@ -8,7 +8,7 @@ spec:
     image: fabricioveronez/roleta:v1
     args:
       - "-w"
-      - "240"
+      - "15"
       - "-c"
       - "2"
       - "-m"

@@ -3,9 +3,13 @@ kind: Job
 metadata:
   name: roleta-job
 spec:
+  # Quantos pods eu posso criar em paralelo 
   parallelism: 1
-  backoffLimit: 100  
+  # Quantas vezes eu tolero falhar
+  backoffLimit: 100 
+  # Quantas vezes eu preciso completar a tarefa pra considerar concluído 
   completions: 2
+  # Quanto tempo o pod fica disponível antes de ser removido. Mas o cluster precisa ter o TTLAfterFinished configurado
   ttlSecondsAfterFinished: 20
   template:
     spec:
@@ -19,5 +23,5 @@ spec:
           - "2"
           - "-m"
           - "5"
-      restartPolicy: Never
+      restartPolicy: Never # OnFailure
 

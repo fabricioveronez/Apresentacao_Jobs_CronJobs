@@ -1,0 +1,1 @@
+https://github.com/fabricioveronez/stock-crawler.git
